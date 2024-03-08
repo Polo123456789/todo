@@ -231,11 +231,12 @@ const followReferenceLink = (todo: Todo) => {
           <span @click.right.prevent="addReferenceLink(dialy[todo.orignalIndex])">
             {{ todo.description }}
           </span>
-          <button class="btn btn-success ms-auto" @click="dialy[todo.orignalIndex].done = true">
-            <i class="bi bi-check2"></i>
-          </button>
+          <div class="ms-auto"></div>
           <button v-if="todo.referenceLink" class="btn btn-secondary" @click.left="followReferenceLink(todo)" @click.right.prevent="addReferenceLink(dialy[todo.orignalIndex])">
             <i class="bi bi-link-45deg"></i>
+          </button>
+          <button class="btn btn-success" @click="dialy[todo.orignalIndex].done = true">
+            <i class="bi bi-check2"></i>
           </button>
           <button class="btn btn-danger" @click="dialy.splice(todo.orignalIndex, 1)">
             <i class="bi bi-x-octagon"></i>
