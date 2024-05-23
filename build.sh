@@ -1,5 +1,5 @@
 #!/bin/bash -x
 
 npm run build
-rm docs/*
+rm docs/* -r
 rsync dist/* docs/ -rv

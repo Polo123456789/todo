@@ -201,7 +201,7 @@ const followReferenceLink = (todo: Todo) => {
             <button class="btn btn-primary" @click="todos.unshift(todos.splice(i, 1)[0])" title="Maxima Prioridad">
               <i class="bi bi-chevron-double-up"></i>
             </button>
-            <button class="btn btn-secondary" @click.right.prevent="addReferenceLink(todo)" @click.left="followReferenceLink(todo)" title="Link">
+            <button class="btn btn-secondary" @click.right.prevent="addReferenceLink(todo)" @click.left="followReferenceLink(todo)" :title="todo.referenceLink ? todo.referenceLink : undefined">
               <i class="bi bi-link-45deg"></i>
             </button>
             <button class="btn btn-danger" @click="todos.splice(i, 1)" title="Eliminar">
@@ -211,10 +211,10 @@ const followReferenceLink = (todo: Todo) => {
           <h6 class="mt-2" v-if="todo.sons && todo.sons.length != 0">Sub Tareas:</h6>
           <ul class="list-group">
             <li class="list-group-item" v-for="son, i of todo.sons" :key="i">
-              <div class="form-check d-flex gap-3">
+              <div class="form-check d-flex gap-3 align-items-center">
                 <input type="checkbox" v-model="son.done">
                 <label @click.right.prevent="addReferenceLink(son)" >{{ son.description }}</label>
-                <button v-if="son.referenceLink" class="badge bg-secondary ms-auto" @click="followReferenceLink(son)" @click.right.prevent="addReferenceLink(son)">
+                <button v-if="son.referenceLink" class="badge bg-secondary ms-auto" @click="followReferenceLink(son)" @click.right.prevent="addReferenceLink(son)" :title="todo.referenceLink ? todo.referenceLink : undefined">
                   <i class="bi bi-link-45deg"></i>
                 </button>
               </div>
@@ -232,7 +232,7 @@ const followReferenceLink = (todo: Todo) => {
             {{ todo.description }}
           </span>
           <div class="ms-auto"></div>
-          <button v-if="todo.referenceLink" class="btn btn-secondary" @click.left="followReferenceLink(todo)" @click.right.prevent="addReferenceLink(dialy[todo.orignalIndex])">
+          <button v-if="todo.referenceLink" class="btn btn-secondary" @click.left="followReferenceLink(todo)" @click.right.prevent="addReferenceLink(dialy[todo.orignalIndex])" :title="todo.referenceLink ? todo.referenceLink : undefined">
             <i class="bi bi-link-45deg"></i>
           </button>
           <button class="btn btn-success" @click="dialy[todo.orignalIndex].done = true">
@@ -270,3 +270,10 @@ const followReferenceLink = (todo: Todo) => {
     </ul>
   </div>
 </template>
+
+<style scoped>
+.form-check > button {
+	height: 2rem;
+	width: 2rem;
+}
+</style>
