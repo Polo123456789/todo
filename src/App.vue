@@ -172,8 +172,8 @@ const followReferenceLink = (todo: Todo) => {
 
 <template>
   <div class="d-flex gap-3 mt-3">
-    <button class="btn btn-dark" @click="importData()">Importar</button>
-    <button class="btn btn-dark" @click="exportData(true)">Exportar</button>
+    <button class="btn btn-dark" @mousedown="importData()">Importar</button>
+    <button class="btn btn-dark" @mousedown="exportData(true)">Exportar</button>
   </div>
   <div class="d-flex gap-3 mt-3 align-items-center">
     <input type="text" v-model="newTodoDesciption" class="form-control" placeholder="Descripcion"
@@ -182,7 +182,7 @@ const followReferenceLink = (todo: Todo) => {
       <input type="checkbox" v-model="newTodoDialy" class="form-check-input">
       <label class="form-check-label">Diario</label>
     </div>
-    <button class="btn btn-dark" @click.exact="addTodo()" @click.shift.exact="addTodo(true)">Agregar</button>
+    <button class="btn btn-dark" @mousedown.exact="addTodo()" @mousedown.shift.exact="addTodo(true)">Agregar</button>
   </div>
 
   <div class="row">
@@ -192,19 +192,19 @@ const followReferenceLink = (todo: Todo) => {
         <li class="list-group-item" v-for="todo, i of todos" :key="i">
           <div class="d-flex gap-1 align-items-center">
             {{ todo.description }}
-            <button class="btn btn-success ms-auto" @click="dones.push(todos.splice(i, 1)[0])" title="Completar">
+            <button class="btn btn-success ms-auto" @mousedown="dones.push(todos.splice(i, 1)[0])" title="Completar">
               <i class="bi bi-check2"></i>
             </button>
-            <button class="btn btn-dark" @click="addChildrenTo(i)" title="Agregar Hijos">
+            <button class="btn btn-dark" @mousedown="addChildrenTo(i)" title="Agregar Hijos">
               <i class="bi bi-diagram-3-fill"></i>
             </button>
-            <button class="btn btn-primary" @click="todos.unshift(todos.splice(i, 1)[0])" title="Maxima Prioridad">
+            <button class="btn btn-primary" @mousedown="todos.unshift(todos.splice(i, 1)[0])" title="Maxima Prioridad">
               <i class="bi bi-chevron-double-up"></i>
             </button>
-            <button class="btn btn-secondary" @click.right.prevent="addReferenceLink(todo)" @click.left="followReferenceLink(todo)" :title="todo.referenceLink ? todo.referenceLink : undefined">
+            <button class="btn btn-secondary" @mousedown.right.prevent="addReferenceLink(todo)" @mousedown.left="followReferenceLink(todo)" :title="todo.referenceLink ? todo.referenceLink : undefined">
               <i class="bi bi-link-45deg"></i>
             </button>
-            <button class="btn btn-danger" @click="todos.splice(i, 1)" title="Eliminar">
+            <button class="btn btn-danger" @mousedown="todos.splice(i, 1)" title="Eliminar">
               <i class="bi bi-x-octagon"></i>
             </button>
           </div>
@@ -213,8 +213,8 @@ const followReferenceLink = (todo: Todo) => {
             <li class="list-group-item" v-for="son, i of todo.sons" :key="i">
               <div class="form-check d-flex gap-3 align-items-center">
                 <input type="checkbox" v-model="son.done">
-                <label @click.right.prevent="addReferenceLink(son)" >{{ son.description }}</label>
-                <button v-if="son.referenceLink" class="badge bg-secondary ms-auto" @click="followReferenceLink(son)" @click.right.prevent="addReferenceLink(son)" :title="todo.referenceLink ? todo.referenceLink : undefined">
+                <label @mousedown.right.prevent="addReferenceLink(son)" >{{ son.description }}</label>
+                <button v-if="son.referenceLink" class="badge bg-secondary ms-auto" @mousedown="followReferenceLink(son)" @mousedown.right.prevent="addReferenceLink(son)" :title="todo.referenceLink ? todo.referenceLink : undefined">
                   <i class="bi bi-link-45deg"></i>
                 </button>
               </div>
@@ -228,17 +228,17 @@ const followReferenceLink = (todo: Todo) => {
       <h1 class="mt-3">Diarios</h1>
       <ul class="list-group">
         <li class="list-group-item d-flex gap-1 align-items-center" v-for="todo, i of dialyPendings" :key="i">
-          <span @click.right.prevent="addReferenceLink(dialy[todo.orignalIndex])">
+          <span @mousedown.right.prevent="addReferenceLink(dialy[todo.orignalIndex])">
             {{ todo.description }}
           </span>
           <div class="ms-auto"></div>
-          <button v-if="todo.referenceLink" class="btn btn-secondary" @click.left="followReferenceLink(todo)" @click.right.prevent="addReferenceLink(dialy[todo.orignalIndex])" :title="todo.referenceLink ? todo.referenceLink : undefined">
+          <button v-if="todo.referenceLink" class="btn btn-secondary" @mousedown.left="followReferenceLink(todo)" @mousedown.right.prevent="addReferenceLink(dialy[todo.orignalIndex])" :title="todo.referenceLink ? todo.referenceLink : undefined">
             <i class="bi bi-link-45deg"></i>
           </button>
-          <button class="btn btn-success" @click="dialy[todo.orignalIndex].done = true">
+          <button class="btn btn-success" @mousedown="dialy[todo.orignalIndex].done = true">
             <i class="bi bi-check2"></i>
           </button>
-          <button class="btn btn-danger" @click="dialy.splice(todo.orignalIndex, 1)">
+          <button class="btn btn-danger" @mousedown="dialy.splice(todo.orignalIndex, 1)">
             <i class="bi bi-x-octagon"></i>
           </button>
         </li>
@@ -246,7 +246,7 @@ const followReferenceLink = (todo: Todo) => {
           <span class="text-muted text-decoration-line-through">
             {{ done.description }}
           </span>
-          <button class="btn btn-secondary ms-auto" @click="dialy[done.orignalIndex].done = false">
+          <button class="btn btn-secondary ms-auto" @mousedown="dialy[done.orignalIndex].done = false">
             <i class="bi bi-journal-x"></i>
           </button>
         </li>
@@ -260,10 +260,10 @@ const followReferenceLink = (todo: Todo) => {
     <ul class="list-group">
       <li class="list-group-item d-flex gap-1 align-items-center" v-for="done, i of dones" :key="i">
         {{ done.description }}
-        <button class="btn btn-secondary ms-auto" @click="todos.push(dones.splice(i, 1)[0])" title="Restaurar">
+        <button class="btn btn-secondary ms-auto" @mousedown="todos.push(dones.splice(i, 1)[0])" title="Restaurar">
           <i class="bi bi-journal-x"></i>
         </button>
-        <button class="btn btn-danger" @click="dones.splice(i, 1)" title="Borrar">
+        <button class="btn btn-danger" @mousedown="dones.splice(i, 1)" title="Borrar">
           <i class="bi bi-x-octagon"></i>
         </button>
       </li>
