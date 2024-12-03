@@ -201,9 +201,9 @@ const followReferenceLink = (todo: Todo) => {
             <button class="btn btn-primary" @mousedown="todos.unshift(todos.splice(i, 1)[0])" title="Maxima Prioridad">
               <i class="bi bi-chevron-double-up"></i>
             </button>
-            <button class="btn btn-secondary" @mousedown.right.prevent="addReferenceLink(todo)" @mousedown.left="followReferenceLink(todo)" :title="todo.referenceLink ? todo.referenceLink : undefined">
+            <a class="btn btn-secondary" @mousedown.right.prevent="addReferenceLink(todo)" :href="todo.referenceLink ? todo.referenceLink : undefined" target="_blank">
               <i class="bi bi-link-45deg"></i>
-            </button>
+            </a>
             <button class="btn btn-danger" @mousedown="todos.splice(i, 1)" title="Eliminar">
               <i class="bi bi-x-octagon"></i>
             </button>
@@ -214,9 +214,9 @@ const followReferenceLink = (todo: Todo) => {
               <div class="form-check d-flex gap-3 align-items-center">
                 <input type="checkbox" v-model="son.done">
                 <label @mousedown.right.prevent="addReferenceLink(son)" >{{ son.description }}</label>
-                <button v-if="son.referenceLink" class="badge bg-secondary ms-auto" @mousedown="followReferenceLink(son)" @mousedown.right.prevent="addReferenceLink(son)" :title="todo.referenceLink ? todo.referenceLink : undefined">
+                <a v-if="son.referenceLink" class="badge bg-secondary ms-auto" @mousedown.right.prevent="addReferenceLink(son)" :href="son.referenceLink ? son.referenceLink : undefined" target="_blank">
                   <i class="bi bi-link-45deg"></i>
-                </button>
+                </a>
               </div>
             </li>
           </ul>
@@ -232,9 +232,9 @@ const followReferenceLink = (todo: Todo) => {
             {{ todo.description }}
           </span>
           <div class="ms-auto"></div>
-          <button v-if="todo.referenceLink" class="btn btn-secondary" @mousedown.left="followReferenceLink(todo)" @mousedown.right.prevent="addReferenceLink(dialy[todo.orignalIndex])" :title="todo.referenceLink ? todo.referenceLink : undefined">
+          <a v-if="todo.referenceLink" class="btn btn-secondary" @mousedown.right.prevent="addReferenceLink(dialy[todo.orignalIndex])" :href="todo.referenceLink ? todo.referenceLink : undefined">
             <i class="bi bi-link-45deg"></i>
-          </button>
+          </a>
           <button class="btn btn-success" @mousedown="dialy[todo.orignalIndex].done = true">
             <i class="bi bi-check2"></i>
           </button>
